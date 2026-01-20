@@ -37,7 +37,7 @@ const UserController = {
     async register(req, res) {
         try {
             const user = await UserService.create(req.body, {});
-            handleResponse(res, { status: 201, message: "User registered successfully", data: user })
+            handleResponse(res, { status: 201, message: "User registered successfully", data: null })
         } catch (error) {
             logger.error(error.message)
             handleError(res, { status: 400, message: error.message })

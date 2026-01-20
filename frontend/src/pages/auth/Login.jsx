@@ -102,10 +102,20 @@ const Login = () => {
                     {loading ? "Logging in..." : "Login"}
                 </button>
 
-                <div className=" flex items-center justify-center mt-5 w-full text-gray-500  cursor-pointer"><span
+                {/* <div className=" flex items-center justify-center mt-5 w-full text-gray-500  cursor-pointer"><span
                 onClick={()=>navigate("/register")}
-                className="text-gray-500 hover:text-blue-500 hover:underline  hover:underline-offset-2">Register here</span></div>
+                className="text-gray-500 hover:text-blue-500 hover:underline  hover:underline-offset-2">Register here</span></div> */}
 
+                <p className="text-sm text-center text-gray-600 mt-4"
+
+                >
+                    Don't have an account?{" "}
+                    <span className="text-gray-800 font-medium cursor-pointer hover:underline"
+                        onClick={() => navigate("/register")}
+                    >
+                        Register
+                    </span>
+                </p>
             </form>
         </div>
     );
