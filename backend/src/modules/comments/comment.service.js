@@ -14,8 +14,8 @@ const CommentService = {
             throw new Error("invalid mongo id");
         }
 
-        const entity = await CommentModel.findById(id)
         logger.silly(`getting entity: ${JSON.stringify(entity)}`)
+        const entity = await CommentModel.findById(id)
         if (entity.isDeleted) {
             return null
         }
@@ -48,6 +48,7 @@ const CommentService = {
         const skip = Math.max(parseInt(options.skip, 10) || 0, 0);
         const limit = Math.min(parseInt(options.limit, 10) || 20, 100);
 
+        logger.info(`Searching comments with where:`, where)
         const [items, total] = await Promise.all([
             commentModel
                 .find(where)
@@ -91,6 +92,7 @@ const CommentService = {
             const parentComment = await this.get(parentId, { lean: false });
 
             if (parentId && !parentComment) {
+                logger.info(`No parent coment found with ${parentId}.`)
                 throw new Error("No parent comment found");
                 return
             }
@@ -119,6 +121,7 @@ const CommentService = {
 
         const user = context?.user
         if (entity?.authorId?.toString() != user?._id?.toString()) {
+            logger.warning(`User:${user?._id} not allowed to update comment:${entity?._id}`)
             throw new Error("Not allowed to edit");
         }
 
@@ -127,6 +130,7 @@ const CommentService = {
         }
 
         if (data.delete) {
+
             entity.isDeleted = data.delete
             //also mark evry child isDeletd :true
             await commentModel.updateMany({ parentId: entity?._id }, {
@@ -134,6 +138,7 @@ const CommentService = {
                     isDeleted: true
                 }
             })
+            logger.info(`Comment: ${entity?._id} deleted with childrens`)
         }
 
         await entity.save();

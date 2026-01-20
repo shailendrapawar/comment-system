@@ -23,7 +23,7 @@ const CommentController = {
             const { query } = req
             // console.log(query)
             const pagination = buildPagination(req.query)
-
+            logger.info(`Searching comments for query:`, req.query)
             const result = await CommentService.search(query, { ...pagination });
 
             return handleResponse(res, {
@@ -36,7 +36,6 @@ const CommentController = {
         } catch (error) {
             logger.error(`Error`, error)
             handleError(res, { status: 400, message: `${error.message}`, data: null })
-
         }
     },
 
@@ -45,6 +44,7 @@ const CommentController = {
 
             const { error, value } = createCommentSchema.validate(req.body);
             if (error) {
+
                 return handleError(res, { status: 400, message: `Validation error: ${error.message}` })
             }
             const payload = {
@@ -53,6 +53,7 @@ const CommentController = {
             }
 
             const result = await CommentService.create(payload, {})
+            logger.info(`Creating comment with payload:`, payload)
             if (!result) {
                 return handleResponse(res, {
                     status: 400,
@@ -85,6 +86,7 @@ const CommentController = {
                 return handleError(res, { status: 400, message: `Validation error: ${error.message}` })
             }
 
+            logger.info(`Updating comment: ${id} and payload`, value)
             const result = await CommentService.update(id, value, { user })
             // console.log(result)
             return handleResponse(res,
@@ -95,7 +97,7 @@ const CommentController = {
             return handleError(res, { status: 400, message: `${error.message}`, data: null })
         }
     },
-    
+
 }
 
 export default CommentController
