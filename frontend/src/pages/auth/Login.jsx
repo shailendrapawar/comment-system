@@ -64,7 +64,7 @@ const Login = () => {
                     Login
                 </h2>
 
-                <div className="mb-3 "
+                <div className="mb-3 mt-6"
                     style={{
                         borderBottom: `2px solid ${theme.border}`
                     }}

@@ -35,7 +35,9 @@ const Landing = () => {
                 </p>
 
                 <div className="flex justify-center gap-4">
-                    <button className="px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700">
+                    <button className="px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700"
+                    onClick={()=>navigate("/register")}
+                    >
                         Join Now
                     </button>
                     <button className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-200">

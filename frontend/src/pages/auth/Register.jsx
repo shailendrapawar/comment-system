@@ -2,7 +2,11 @@ import { useState } from "react";
 import { toast } from "react-hot-toast"
 import API from "../../config/api";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../../contexts/ThemeContext";
 const Register = () => {
+
+    const { theme } = useTheme();
+
     const [form, setForm] = useState({
         name: "",
         email: "",
@@ -62,48 +66,53 @@ const Register = () => {
                     Create Account
                 </h2>
 
-                {/* Name */}
-                <div className="mb-3">
-                    <label className="block text-sm text-gray-600 mb-1">
-                        Name
-                    </label>
+                <div className="mb-3 mt-6"
+                    style={{
+                        borderBottom: `2px solid ${theme.border}`
+                    }}
+                >
                     <input
                         type="text"
                         name="name"
+                        placeholder="Enter name"
                         required
                         value={form.name}
                         onChange={handleChange}
-                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400"
+                        className="w-full px-3 py-2  rounded-md outline-none "
                     />
                 </div>
 
-                {/* Email */}
-                <div className="mb-3">
-                    <label className="block text-sm text-gray-600 mb-1">
-                        Email
-                    </label>
+                <div className="mb-3"
+                    style={{
+                        borderBottom: `2px solid ${theme.border}`
+                    }}
+                >
+
                     <input
                         type="email"
                         name="email"
                         required
+                        placeholder="Enter email"
                         value={form.email}
                         onChange={handleChange}
-                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400"
+                        className="w-full px-3 py-2 rounded-md  outline-none"
                     />
                 </div>
 
-                {/* Password */}
-                <div className="mb-4">
-                    <label className="block text-sm text-gray-600 mb-1">
-                        Password
-                    </label>
+                <div className="mb-4"
+                    style={{
+                        borderBottom: `2px solid ${theme.border}`
+                    }}
+                >
+
                     <input
                         type="password"
                         name="password"
                         required
+                        placeholder="Enter password"
                         value={form.password}
                         onChange={handleChange}
-                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400"
+                        className="w-full px-3 py-2  rounded-md  outline-none"
                     />
                 </div>
 
