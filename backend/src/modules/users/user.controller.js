@@ -62,9 +62,8 @@ const UserController = {
                 maxAge: 24 * 60 * 60 * 1000
             })
 
-            console.log("token set", token)
-
-
+            // console.log("token set", token)
+            logger.silly(`User logged in: ${user?._id}`)
             return handleResponse(res, { status: 200, message: "User login successfully", data: { token, user } })
         } catch (error) {
             logger.error(`Error`, error)
