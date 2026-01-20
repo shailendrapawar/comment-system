@@ -1,9 +1,9 @@
 import { verifyToken } from "../helpers/tokenHandler.js";
-import { logger } from "../utils.js"
+import { logger } from "../utils/logger.js"
 export const authMiddleware = (req, res, next) => {
     try {
         const token = req.cookies?.token;
-        logger.debug(`User came  with token`,req.cookies)
+        logger.debug(`User came  with token`, req.cookies)
         if (!token) {
             return res.status(401).json({ message: "Unauthorized" });
         }
