@@ -11,7 +11,7 @@ const router = express.Router();
 // router.put("/:id", UserController.update);
 
 
-// router.post("/register", UserController.register);
+router.post("/register", UserController.register);
 router.post("/login", UserController.login);
 
 

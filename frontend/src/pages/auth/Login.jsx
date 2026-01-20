@@ -6,7 +6,6 @@ import API from "../../config/api.js"
 import { useNavigate } from "react-router-dom"
 import { useUser } from "../../contexts/UserContext.jsx";
 
-
 const Login = () => {
 
     const { theme } = useTheme()
@@ -102,6 +101,11 @@ const Login = () => {
                 >
                     {loading ? "Logging in..." : "Login"}
                 </button>
+
+                <div className=" flex items-center justify-center mt-5 w-full text-gray-500  cursor-pointer"><span
+                onClick={()=>navigate("/register")}
+                className="text-gray-500 hover:text-blue-500 hover:underline  hover:underline-offset-2">Register here</span></div>
+
             </form>
         </div>
     );

@@ -1,5 +1,7 @@
 import { useState } from "react";
-
+import { toast } from "react-hot-toast"
+import API from "../../config/api";
+import { useNavigate } from "react-router-dom";
 const Register = () => {
     const [form, setForm] = useState({
         name: "",
@@ -7,6 +9,7 @@ const Register = () => {
         password: "",
     });
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate()
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -14,12 +17,39 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (form.email == "" || form.password == "" || form.name == "") {
+            toast.error("All fields are required")
+            return
+        }
+
+        if (loading) return
+
+
         setLoading(true);
 
-        setTimeout(() => {
-            console.log(form);
-            setLoading(false);
-        }, 800);
+        try {
+            const result = await API.post("/users/register", {
+                name: form.name,
+                email: form.email,
+                password: form.password
+            })
+            const user = result?.data?.data || null
+
+            console.log(user)
+
+            toast.success('User registered')
+
+
+            setTimeout(() => {
+                navigate("/login")
+            }, 1000);
+        } catch (error) {
+            // console.log(error?.response?.data?.message)
+            console.log(error)
+            toast.error(error?.response?.data?.message || "Something went wrong")
+        } finally {
+            setLoading(false)
+        }
     };
 
     return (

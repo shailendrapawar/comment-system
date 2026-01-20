@@ -10,13 +10,15 @@ const UserService = {
         if (id) {
             if (mongoose.Types.ObjectId.isValid(id)) {
                 where._id = id;
+                // user = UserModel.findById({ _id: id });
             } else {
                 where.email = id;
+                // user = UserModel.findById({ email: id });
             }
+            user = UserModel.findOne({ email: id });
         }
-        user = UserModel.findOne(where);
 
-        if (options.lean) {
+        if (user && options.lean) {
             user = await user.lean()
         }
         user = await user;
@@ -31,9 +33,11 @@ const UserService = {
 
         let user = null
 
-        user = this.get(data.email)
+        user = await this.get(data.email)
+
 
         if (user) {
+            logger.info("User found with  email: ", user)
             throw new Error('User with this email already exists');
         }
 
