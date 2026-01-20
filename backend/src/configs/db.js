@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 import { logger } from "../utils/logger.js"; // optional logger
 import { ENV } from "./env.js"
 export async function connectDB() {
-    const uri = ENV.MONGO_URL + ENV.DB_NAME
+    const uri = ENV.MONGO_URL
 
     try {
         await mongoose.connect(uri);
